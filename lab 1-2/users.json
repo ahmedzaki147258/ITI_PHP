@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "firstName": "Ahmed",
+    "lastName": "zaki",
+    "address": "Cairo",
+    "country": "Egypt",
+    "gender": "Male",
+    "skills": ["NodeJS", "Laravel"],
+    "userName": "ahmed-zaki",
+    "department": "IT"
+  },
+  {
+    "id": 2,
+    "firstName": "Ahmed",
+    "lastName": "zaki",
+    "address": "Cairo",
+    "country": "Egypt",
+    "gender": "Male",
+    "skills": ["NodeJS", "Laravel"],
+    "userName": "ahmed-zaki",
+    "department": "IT"
+  }
+]
