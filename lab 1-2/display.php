@@ -1,12 +1,10 @@
 <?php
 require_once './HelperTrait.php';
 
-class Display
-{
+class Display {
   use HelperTrait;
 
-  public function display(): void
-  {
+  public function display(): void {
     $users = $this->readTxtFile('users.txt');
     echo "<!DOCTYPE html>
           <html lang='en'>

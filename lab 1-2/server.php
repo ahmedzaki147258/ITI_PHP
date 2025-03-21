@@ -2,12 +2,10 @@
 require_once "./connect.php";
 require_once "./HelperTrait.php";
 
-class Register
-{
+class Register {
   use HelperTrait;
 
-  public function register()
-  {
+  public function register() {
     $formDataIssues = $this->validatePostData($_POST);
     $formErrors = $formDataIssues["errors"];
     $oldData = $formDataIssues["valid_data"];

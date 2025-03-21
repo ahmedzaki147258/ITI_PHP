@@ -1,30 +1,25 @@
 <?php
 
-trait HelperTrait
-{
-  function filtersRequest($requestName): string
-  {
+trait HelperTrait {
+  function filtersRequest($requestName): string {
     if (is_array($_POST[$requestName])) return implode(', ', $_POST[$requestName]);
     return trim(htmlspecialchars(strip_tags($_POST[$requestName])));
   }
 
-  public function checkFileExist($fileName): void
-  {
+  public function checkFileExist($fileName): void {
     if (!file_exists($fileName)) {
       file_put_contents($fileName, "");
     }
   }
 
-  public function readJsonFile($fileName): array
-  {
+  public function readJsonFile($fileName): array {
     if (!file_exists($fileName)) {
       file_put_contents($fileName, json_encode([]));
     }
     return json_decode(file_get_contents($fileName), true);
   }
 
-  public function readTxtFile($fileName): array
-  {
+  public function readTxtFile($fileName): array {
     $this->checkFileExist($fileName);
     $users = [];
     $usersData = file($fileName);
@@ -44,8 +39,7 @@ trait HelperTrait
     return $users;
   }
 
-  public function saveToFile($fileName, $data): void
-  {
+  public function saveToFile($fileName, $data): void {
     $this->checkFileExist($fileName);
     $newID = 1;
     $file = fopen($fileName, "a");
@@ -57,8 +51,7 @@ trait HelperTrait
     fclose($file);
   }
 
-  public function deleteFromFile($fileName, $id): void
-  {
+  public function deleteFromFile($fileName, $id): void{
     $newData = [];
     $usersData = file($fileName);
     foreach ($usersData as $key => $value) {
@@ -67,8 +60,7 @@ trait HelperTrait
     file_put_contents($fileName, $newData);
   }
 
-  function validatePostData($postData): array
-  {
+  function validatePostData($postData): array {
     $errors = [];
     $valid_data = [];
 
