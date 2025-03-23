@@ -1,3 +1,0 @@
-1:Ahmed:Zaki:sdv:Egypt:Male:J2SE, MySQL:ed:Open Source
-3:Ahmed:Zaki:sdv:Egypt:Male:J2SE, MySQL:ed:Open Source
-4:trh:trg:trh:USA:Female:PHP, J2SE, MySQL, PostgreeSQL:b24_35515032:Open Source
