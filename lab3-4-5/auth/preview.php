@@ -38,7 +38,7 @@ if (!isset($_SESSION['name'])) {
     </div>
 
     <div class="p-4 flex justify-center">
-        <a href="./logout.php" class="px-4 py-1.5 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 transition-colors duration-300 text-sm">
+        <a href="logout.php" class="px-4 py-1.5 bg-red-500 text-white rounded-md shadow-sm hover:bg-red-600 transition-colors duration-300 text-sm">
             Logout
         </a>
     </div>

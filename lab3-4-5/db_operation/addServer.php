@@ -1,12 +1,13 @@
 <?php
-require_once "./connect.php";
-require_once "./HelperTrait.php";
+require_once '../models/User.php';
+require_once '../utils/HelperTrait.php';
+require_once '../utils/ValidationTrait.php';
 
-class User {
-  use HelperTrait;
+class AddUser {
+  use HelperTrait, ValidationTrait;
 
-  public function addUser() {
-    $formDataIssues = $this->validatePostData($_POST);
+  public function __construct() {
+    $formDataIssues = $this->validateAddData($_POST);
     $formErrors = $formDataIssues["errors"];
     $oldData = $formDataIssues["valid_data"];
 
@@ -15,27 +16,33 @@ class User {
       $queryString = "errors={$errors}";
       $old_data = json_encode($oldData);
       if ($old_data) $queryString .= "&old={$old_data}";
-      header("location:addUserForm.php?{$queryString}");
+      header("location:addForm.php?{$queryString}");
       exit;
     } else {
-      global $con;
-      $file_name = $_FILES['file']['name'];
-      $file_tmp = $_FILES['file']['tmp_name'];
-      move_uploaded_file($file_tmp, "files/" . $file_name);
+      $file_name = $_FILES['image']['name'];
+      $file_tmp = $_FILES['image']['tmp_name'];
+			$file_ext = pathinfo($file_name, PATHINFO_EXTENSION);
+			$new_file_name = md5($this->generateRandomString(10) . "_" . time() . "_" . $file_name) . "." . $file_ext;
+			move_uploaded_file($file_tmp, "../images/" . $new_file_name);
 
       $name = $this->filtersRequest("name");
       $email = $this->filtersRequest("email");
       $password = $this->filtersRequest("password");
       $room_no = $this->filtersRequest("room_no");
       $ext = $this->filtersRequest("ext");
-      $image = $file_name;
+      $image = "http://localhost/iti-php/lab3-4-5/images/" . $new_file_name;
       $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-      $stmt = $con->prepare("INSERT INTO `users2`(`name`, `email`, `password`, `room_no`, `ext`, `image`) VALUES ( ? , ? , ? , ?, ? , ? )");
-      $stmt->execute(array($name, $email, $hashed_password, $room_no, $ext, $image));
-      $count = $stmt->rowCount();
-      if ($count > 0) {
-        echo "<!DOCTYPE html>
+	    try {
+		    User::create([
+			    "name" => $name,
+			    "email" => $email,
+			    "password" => $hashed_password,
+			    "room_no" => $room_no,
+			    "ext" => $ext,
+			    "image" => $image
+		    ]);
+		    echo "<!DOCTYPE html>
               <html lang='en'>
               <head>
                   <meta charset='UTF-8'>
@@ -53,12 +60,16 @@ class User {
                   </div>
               </body>
               </html>";
-      } else {
-        echo json_encode(array("status" => "fail"));
-      }
+	    } catch (Exception $e) {
+		    $errors = json_encode(["email" => "Email already exists"]);
+		    $queryString = "errors={$errors}";
+		    $old_data = json_encode($oldData);
+		    if ($old_data) $queryString .= "&old={$old_data}";
+		    header("location:addForm.php?{$queryString}");
+		    exit;
+	    }
     }
   }
 }
 
-$user = new User();
-$user->addUser();
+new AddUser();

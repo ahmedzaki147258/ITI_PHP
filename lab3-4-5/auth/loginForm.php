@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_SESSION['name'])) {
-        header("Location:preview.php");
+        header("location:preview.php");
         exit;
     }
 
@@ -18,7 +18,6 @@
     }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +31,7 @@
 <body class="bg-gray-50 flex justify-center items-center min-h-screen">
 <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
     <h2 class="text-xl font-semibold text-gray-700 text-center mb-4">Login Form</h2>
-    <form action="./loginServer.php" method="POST" class="space-y-3">
+    <form action="loginServer.php" method="POST" class="space-y-3">
 
         <div class="grid grid-cols-[18%_80%] gap-2">
             <label class="text-gray-700 font-semibold" for="email">E-mail</label>
@@ -59,8 +58,8 @@
 			<?php endif; ?>
 
         <div class="flex justify-between">
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Login</button>
             <button type="reset" class="bg-gray-400 text-white px-4 py-2 rounded-md hover:bg-gray-500">Reset</button>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Login</button>
         </div>
     </form>
 </div>
